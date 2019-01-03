@@ -1,0 +1,103 @@
+<!--<ion-nav [root]="rootPage"></ion-nav>-->
+<ion-split-pane when="(min-width: 1920px)">
+    <ion-menu id="loggedOutMenu" [content]="nav">
+    <ion-header [ngClass]="{'expanded': expanded}" class="menuHeader">
+        <ion-toolbar color="primary">
+        <ion-title>
+            Menu
+        </ion-title>
+        <ion-buttons end class="btnClose" text-center>
+            <button ion-button icon-only menuClose>
+            <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
+    
+    <ion-content>
+        <ion-list>
+        <ion-item ion-item (click)="openModal('ListingPage')">
+          <ion-icon name="ios-chatbubbles" item-left></ion-icon>
+          All Listing
+        </ion-item>
+        <ion-item ion-item (click)="openModal('ExpressSearchPage')">
+          <ion-icon name="ios-chatbubbles" item-left></ion-icon>
+          Express Search
+        </ion-item>
+        <ion-item *ngFor="let logoutPage of loggedOutPages" ion-item (click)="openPage(logoutPage)">
+            <ion-icon [name]="logoutPage.icon" item-left></ion-icon>
+            {{ logoutPage.title }}
+        </ion-item>
+        </ion-list>
+    </ion-content>
+    </ion-menu>
+
+
+    <!-- logged in menu -->
+    <ion-menu id="loggedInMenu" [content]="nav">
+        <ion-header [ngClass]="{'expanded': expanded}" class="menuHeader">
+          <ion-toolbar color="primary">
+            <ion-title>
+              
+            </ion-title>
+            <ion-buttons end class="btnClose" text-center>
+              <button ion-button icon-only menuClose>
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+              <ion-item ion-item *ngIf="username">
+                  <ion-icon name="contact" item-left ></ion-icon> {{ username }}
+              </ion-item>
+          <ion-list>
+            <ion-item ion-item (click)="openModal('ListingPage')" > 
+              <ion-icon name="ios-chatbubbles" item-left></ion-icon>
+              All Listing
+            </ion-item>
+            <ion-item ion-item (click)="openModal('ExpressSearchPage')" *ngIf="this.userTypes=='Free'">
+              <ion-icon name="ios-chatbubbles" item-left></ion-icon>
+              Express Search
+            </ion-item>
+            <ion-item ion-item (click)="openModal('MessagesPage')" >
+              <ion-icon name="ios-chatbubbles" item-left></ion-icon>
+              Messeges
+            </ion-item>
+            <ion-item ion-item (click)="openModal('BookingsPage')" *ngIf="this.userTypes=='Free'">
+              <ion-icon name="ios-calendar" item-left></ion-icon>
+              Bookings
+            </ion-item>
+            <ion-item ion-item (click)="openModal('PaidBookingsPage')" *ngIf="this.userTypes=='Business'">
+              <ion-icon name="ios-cash-outline" item-left></ion-icon>
+              Paid Bookigs
+            </ion-item>
+            <ion-item ion-item (click)="openModal('ReviewsPage')">
+              <ion-icon name="ios-pulse" item-left></ion-icon>
+              Reviews
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+            <ion-list-header>
+              Settings
+            </ion-list-header>
+            <ion-item ion-item (click)="openModal('ProfilePage')">
+              <ion-icon name="ios-calendar" item-left></ion-icon>
+              Profile
+            </ion-item>
+            <ion-item ion-item (click)="openModal('PasswordUpdatePage')">
+              <ion-icon name="ios-calendar" item-left></ion-icon>
+              Change Password
+            </ion-item>
+            <ion-item *ngFor="let loginPage of loggedInPages" ion-item (click)="openPage(loginPage)">
+              <ion-icon [name]="loginPage.icon" item-left></ion-icon>
+              {{ loginPage.title }}
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-menu>
+
+
+<ion-nav [root]="rootPage" #nav swipeBackEnabled="false" main name="app"></ion-nav>
+</ion-split-pane>
